@@ -1,4 +1,36 @@
-defmodule ProteinTranslation do
+defmodule ExercismElixir do
+  use Bitwise
+
+  @nucleotides [?A, ?C, ?G, ?T]
+
+  @spec hello :: String.t()
+  def hello, do: "Hello, World!"
+
+  @spec secret_handshake(code :: integer) :: list(String.t())
+  def secret_handshake(code) when code > 16, do: Enum.map(rem(code,16)..0, & gen(&1 &&& code)) |> Enum.filter(& &1!=nil)
+  def secret_handshake(code), do: Enum.map(0..rem(code,16), & gen(&1 &&& code)) |> Enum.filter(& &1!=nil)
+  def gen(1), do: "wink"
+  def gen(2), do: "double blink"
+  def gen(4), do: "close your eyes"
+  def gen(8), do: "jump"
+  def gen(_n), do: nil
+
+  @spec count([char], char) :: non_neg_integer
+  def count('', _nucleotide), do: 0
+  def count(strand, nucleotide) do
+    # Enum.filter(strand, &(&1 == ?A)) |> Enum.count
+    Enum.count(strand, &(&1 == nucleotide))
+  end
+
+  @spec histogram([char]) :: map
+  def histogram(''), do: %{?A => 0, ?T => 0, ?C => 0, ?G => 0}
+  def histogram(strand) do
+    %{?A => Enum.count(strand, & &1 == ?A),
+      ?T => Enum.count(strand, & &1 == ?T),
+      ?C => Enum.count(strand, & &1 == ?C),
+      ?G => Enum.count(strand, & &1 == ?G)}
+  end
+
   @spec of_rna(String.t()) :: {atom, list(String.t())}
   def of_rna(rna), do: rna |> check("RNA")
 
@@ -53,7 +85,7 @@ defmodule ProteinTranslation do
     # %{ protein => list of codons }
     %{
       "Cysteine"      => [ "UGU", "UGC" ],
-      "Leucine"       => [ "UUA", "UAC" ],
+      "Leucine"       => [ "UUA", "UUG" ],
       "Methionine"    => [ "AUG" ],
       "Phenylalanine" => [ "UUU", "UUC" ],
       "Serine"        => [ "UCU", "UCC", "UCA", "UCG" ],
@@ -63,4 +95,22 @@ defmodule ProteinTranslation do
     }
   end
 
+  @spec rotate(text :: String.t(), shift :: integer) :: String.t()
+  def rotate(text, shift) do
+    text
+    |> String.to_charlist
+    |> Enum.map(& gen(&1, shift))
+    |> to_string
+  end
+
+  defp gen(n, shift) when n in ?a..?z do
+    n - ?a + shift |> rem(26) |> Kernel.+(?a)
+  end
+  defp gen(n, shift) when n in ?A..?Z do
+    n - ?A + shift |> rem(26) |> Kernel.+(?A)
+  end
+  defp gen(n, _shift), do: n
+
+  @spec two_fer(String.t()) :: String.t()
+  def two_fer(name \\ "you") when is_binary(name), do: "One for #{ name }, one for me"
 end
