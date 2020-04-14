@@ -6,6 +6,7 @@ defmodule SecretHandshakeTest do
   test "wink for 1", do: assert secret_handshake(1) == ["wink"]
   test "double blink for 10", do: assert secret_handshake(2) == ["double blink"]
   test "close your eyes for 100", do: assert secret_handshake(4) == ["close your eyes"]
+  test "5", do: assert secret_handshake(5) == ["wink", "close your eyes"]
   test "jump for 1000", do: assert secret_handshake(8) == ["jump"]
   test "combine two actions", do: assert secret_handshake(3) == ["wink", "double blink"]
   test "reverse two actions", do: assert secret_handshake(19) == ["double blink", "wink"]

@@ -7,8 +7,8 @@ defmodule ExercismElixir do
   def hello, do: "Hello, World!"
 
   @spec secret_handshake(code :: integer) :: list(String.t())
-  def secret_handshake(code) when code > 16, do: Enum.map(rem(code,16)..0, & gen(&1 &&& code)) |> Enum.filter(& &1!=nil)
-  def secret_handshake(code), do: Enum.map(0..rem(code,16), & gen(&1 &&& code)) |> Enum.filter(& &1!=nil)
+  def secret_handshake(code) when code > 16, do: Enum.map(rem(code,16)..1, & gen(&1 &&& code)) |> Enum.filter(& &1!=nil) |> Enum.uniq
+  def secret_handshake(code), do: Enum.map(1..rem(code,16), & gen(&1 &&& code)) |> Enum.filter(& &1!=nil) |> Enum.uniq
   def gen(1), do: "wink"
   def gen(2), do: "double blink"
   def gen(4), do: "close your eyes"
