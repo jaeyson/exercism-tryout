@@ -1,6 +1,6 @@
 defmodule TwoFerTest do
   use ExUnit.Case
-  import ExercismElixir
+  import TwoFer
 
   test "no name given", do: assert two_fer() == "One for you, one for me"
   test "a name given", do: assert two_fer("Gilberto Barros") == "One for Gilberto Barros, one for me"

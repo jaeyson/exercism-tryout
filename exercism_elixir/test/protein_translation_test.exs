@@ -1,6 +1,6 @@
 defmodule ProteinTranslationTest do
   use ExUnit.Case
-  import ExercismElixir
+  import ProteinTranslation
 
   test "AUG translates to methionine", do: assert of_codon("AUG") == {:ok, "Methionine"}
 

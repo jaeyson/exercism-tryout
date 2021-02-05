@@ -1,6 +1,6 @@
 defmodule NucleotideCountTest do
   use ExUnit.Case
-  import ExercismElixir
+  import NucleotideCount
 
   test "empty dna string has no adenine", do: assert count('', ?A) == 0
   test "repetitive cytosine gets counted", do: assert count('CCCCC', ?C) == 5

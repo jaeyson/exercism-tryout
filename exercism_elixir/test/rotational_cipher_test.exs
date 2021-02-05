@@ -1,6 +1,6 @@
 defmodule RotationalCipherTest do
   use ExUnit.Case
-  import ExercismElixir
+  import RotationalCipher
 
   test "rotate a by 1" do
     plaintext = "a"
